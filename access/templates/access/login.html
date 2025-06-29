@@ -1,0 +1,67 @@
+{% extends "access/base.html" %} {% block content%}
+<nav class="navbar navbar-expand-md navbar-expand-lg navbar-dark bg-dark w-100">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">POSTS</span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<br /><br />
+<h1 class="container">User Login</h1>
+
+{% if errors %} {% for error in errors %}
+<div class="container">
+  <div class="mx-1 alert alert-dark alert-dismissible fade show" role="alert">
+    {{error}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+</div>
+{% endfor %} {% endif %}
+<form class="container" method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="username" class="form-label">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      id="username"
+      name="username"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="password"
+      name="password"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content%}

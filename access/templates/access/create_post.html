@@ -1,0 +1,61 @@
+{% extends "access/base.html" %}
+{% load static %} {% block content %}
+<nav class="navbar navbar-expand-md navbar-expand-lg navbar-dark bg-dark w-100">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">POSTS</span>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+{% if errors %} {% for error in errors %}
+<div class="container">
+  <div class="mx-1 alert alert-dark alert-dismissible fade show" role="alert">
+    {{error}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+</div>
+{% endfor %} {% endif %}
+<form class="container mt-3" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    <label class="form-label">{{form.heading.label}}</label>
+    {{form.heading}}
+    <label class="form-label">{{form.sub_heading.label}}</label>
+    {{form.sub_heading}}
+    <label class="form-label">{{form.description.label}}</label>
+    {{form.description}}
+    <label class="form-label mt-5">{{form.image.label}}</label>
+    {{form.image}} <br>
+    <button type="submit" class="btn btn-primary mt-5">Upload</button>
+</form>
+{% endblock content%}
